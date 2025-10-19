@@ -26,15 +26,26 @@ interface Character {
 }
 
 const characterImages = [
-    "/ragers/Bitch Please.webp",
-    "/ragers/Derpette.webp",
-    "/ragers/FUUUUUUU.webp",
-    "/ragers/Grrrr.webp",
-    "/ragers/Herp.webp",
-    "/ragers/Lolguy.webp",
-    "/ragers/Me Gusta.webp",
-    "/ragers/Troll.webp",
-    "/ragers/Rageguy.webp",
+    `${process.env.PUBLIC_URL}/ragers/Bitch Please.webp`,
+    `${process.env.PUBLIC_URL}/ragers/Confused Derp.webp`,
+    `${process.env.PUBLIC_URL}/ragers/Crying Herp.webp`,
+    `${process.env.PUBLIC_URL}/ragers/Derpette.webp`,
+    `${process.env.PUBLIC_URL}/ragers/Forever Alone.webp`,
+    `${process.env.PUBLIC_URL}/ragers/Fuck No.webp`,
+    `${process.env.PUBLIC_URL}/ragers/FUUUUUUU.webp`,
+    `${process.env.PUBLIC_URL}/ragers/Grrrr.webp`,
+    `${process.env.PUBLIC_URL}/ragers/Happy Herp.webp`,
+    `${process.env.PUBLIC_URL}/ragers/Happy Herpette.webp`,
+    `${process.env.PUBLIC_URL}/ragers/Herp.webp`,
+    `${process.env.PUBLIC_URL}/ragers/Herpette.webp`,
+    `${process.env.PUBLIC_URL}/ragers/Indifferent Herp.webp`,
+    `${process.env.PUBLIC_URL}/ragers/Lauging Herpette.webp`,
+    `${process.env.PUBLIC_URL}/ragers/Lolguy.webp`,
+    `${process.env.PUBLIC_URL}/ragers/Me Gusta.webp`,
+    `${process.env.PUBLIC_URL}/ragers/Precious.webp`,
+    `${process.env.PUBLIC_URL}/ragers/Rageguy.webp`,
+    `${process.env.PUBLIC_URL}/ragers/Troll.webp`,
+    `${process.env.PUBLIC_URL}/ragers/Y U NO.webp`,
 ];
 
 export default function MemeEditor({

@@ -1,0 +1,35 @@
+.App {
+  text-align: center;
+  color: white;
+}
+
+.template-selector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.template-list {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.template {
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.2em;
+  border: 2px solid #ccc;
+  transition: transform 0.2s;
+}
+
+.template:hover {
+  transform: scale(1.05);
+}

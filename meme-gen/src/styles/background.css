@@ -1,0 +1,6 @@
+.background-pattern {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 20% 20%, #f0f0f0, #cccccc);
+  z-index: -1;
+}

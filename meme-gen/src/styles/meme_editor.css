@@ -1,0 +1,131 @@
+.meme-editor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    user-select: none;
+}
+
+.meme-canvas {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    margin: 20px 0;
+    overflow: hidden;
+    border: 2px solid #444;
+    border-radius: 8px;
+    touch-action: none; /* Prevent scroll during drag */
+}
+
+.char-dropdown {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 5px;
+  background: #222; /* optional background */
+}
+
+.char-option {
+  width: 80px;   /* fixed width */
+  height: 80px;  /* fixed height */
+  object-fit: contain;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border 0.2s;
+}
+
+.char-option:hover {
+  border: 2px solid #fff;
+}
+
+
+.draggable-char {
+    position: absolute; /* required for left/top to work */
+    cursor: move;
+    user-select: none; /* prevents selecting the image while dragging */
+    touch-action: none; /* prevents touch scrolling */
+    object-fit: contain; /* keeps aspect ratio when scaling */
+}
+
+.scale-control {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.draggable-text {
+    position: absolute;
+    cursor: move;
+    text-align: center;
+}
+
+.text-display {
+    font-weight: bold;
+    font-size: 24px;
+    cursor: move;
+    display: inline-block;
+    padding: 2px 4px;
+}
+
+.draggable-text input {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    color: white;
+    font-weight: bold;
+    font-size: 24px;
+    text-shadow: 2px 2px 5px black;
+    text-align: center;
+    outline: none;
+    width: 160px;
+}
+
+.controls {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+.top-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.back-btn {
+    color: white;
+    background-color: #444;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.action-btn,
+.upload-btn {
+    color: white;
+    background-color: #444;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.back-btn:hover,
+.action-btn:hover,
+.upload-btn:hover {
+    background-color: #666;
+}
+
+.upload-btn input {
+    display: none;
+}

@@ -55,9 +55,21 @@
     position: absolute;
     top: 10px;
     left: 10px;
-    background: rgba(255, 255, 255, 0.8);
-    padding: 5px;
-    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(130, 130, 130, 0.9);
+    padding: 8px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+.scale-control input[type="range"] {
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    background-color: #ff1a1a;
 }
 
 .draggable-text {
@@ -66,9 +78,17 @@
     text-align: center;
 }
 
+.drawing-controls {
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+    gap: 8px;
+}
+
 .text-display {
+    font-family: monospace;
     font-weight: bold;
-    font-size: 24px;
+    font-size: 12px;
     cursor: move;
     display: inline-block;
     padding: 2px 4px;

@@ -2,14 +2,17 @@ import React, { useState, useRef, useEffect } from "react";
 import DrawingCanvas from "./DrawingCanvas";
 import TextControls from "./TextControls";
 import CharacterControls from "./CharacterControls";
+import DrawingControls from "./DrawingControls";
 
 import "../styles/meme_editor.css";
 import html2canvas from "html2canvas";
 
 interface MemeEditorProps {
-    initialBackground?: string;
-    textColor?: string;
-    onBack: () => void;
+  onBack: () => void;
+  initialBackground?: string;
+  textColor?: string;
+  canvasWidth?: number;
+  canvasHeight?: number;
 }
 
 interface TextBox {
@@ -434,23 +437,13 @@ export default function MemeEditor({
                     characterImages={characterImages}
                     addCharacter={addCharacter}
                 />
-                <div className="controls">
-                    <button
-                        className={`action-btn ${
-                            isDrawingMode ? "active" : ""
-                        }`}
-                        onClick={() => setIsDrawingMode((prev) => !prev)}
-                    >
-                        ✏️{" "}
-                        {isDrawingMode ? "Disable Drawing" : "Enable Drawing"}
-                    </button>
-                    {isDrawingMode && (
-                        <input
-                            type="color"
-                            value={draw_color}
-                            onChange={(e) => set_draw_color(e.target.value)}
-                        />
-                    )}
+                <div >
+                    <DrawingControls
+                        isDrawingMode={isDrawingMode}
+                        drawColor={draw_color}
+                        setIsDrawingMode={setIsDrawingMode}
+                        setDrawColor={set_draw_color}
+                    />                    
                 </div>
             </div>
         </div>

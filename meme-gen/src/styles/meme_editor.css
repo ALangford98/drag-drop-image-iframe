@@ -8,8 +8,8 @@
 
 .meme-canvas {
   aspect-ratio: 1 / 1; /* consistent square layout */
-  max-width: 600px;
-  max-height: 600px;
+  max-width: 350px;
+  max-height: 350px;
   width: 100%;
   height: auto;
   margin: 0 auto;

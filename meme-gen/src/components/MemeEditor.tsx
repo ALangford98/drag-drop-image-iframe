@@ -8,11 +8,11 @@ import "../styles/meme_editor.css";
 import html2canvas from "html2canvas";
 
 interface MemeEditorProps {
-  onBack: () => void;
-  initialBackground?: string;
-  textColor?: string;
-  canvasWidth?: number;
-  canvasHeight?: number;
+    onBack: () => void;
+    initialBackground?: string;
+    textColor?: string;
+    canvasWidth?: number;
+    canvasHeight?: number;
 }
 
 interface TextBox {
@@ -30,6 +30,7 @@ interface Character {
     y: number;
     width: number;
     height: number;
+    flipped?: boolean;
 }
 
 const characterImages = [
@@ -38,7 +39,7 @@ const characterImages = [
     `${process.env.PUBLIC_URL}/ragers/RAGE.png`,
     `${process.env.PUBLIC_URL}/ragers/FFFFUUUU.png`,
     `${process.env.PUBLIC_URL}/ragers/DOWN.png`,
-    `${process.env.PUBLIC_URL}/ragers/Rageguy.webp`,
+    `${process.env.PUBLIC_URL}/ragers/Y U NO.webp`,
     `${process.env.PUBLIC_URL}/ragers/Troll.webp`,
     `${process.env.PUBLIC_URL}/ragers/Lolguy.webp`,
     `${process.env.PUBLIC_URL}/ragers/Bitch Please.webp`,
@@ -103,6 +104,20 @@ export default function MemeEditor({
             img.src = initialBackground;
         }
     }, [initialBackground]);
+
+    useEffect(() => {
+        const preventScroll = (e: TouchEvent) => {
+            if (isDrawingMode || activeChar !== null || activeBox !== null) {
+                e.preventDefault();
+            }
+        };
+        document.body.addEventListener("touchmove", preventScroll, {
+            passive: false,
+        });
+        return () => {
+            document.body.removeEventListener("touchmove", preventScroll);
+        };
+    }, [isDrawingMode, activeChar, activeBox]);
 
     const handleUploadBackground = (file: File) => {
         const reader = new FileReader();
@@ -293,6 +308,20 @@ export default function MemeEditor({
                 }
                 onTouchEnd={stopDrag}
             >
+                <div
+                    style={{
+                        fontFamily: "monospace",
+                        position: "absolute",
+                        bottom: 8,
+                        right: 12,
+                        fontSize: "16px",
+                        color: "rgba(100, 100, 100, 0.84)",
+                        pointerEvents: "none",
+                        userSelect: "none",
+                    }}
+                >
+                    rageonsol.com
+                </div>
                 <DrawingCanvas
                     width={canvasSize.width}
                     height={canvasSize.height}
@@ -325,29 +354,11 @@ export default function MemeEditor({
                         onDoubleClick={() => handleTextDoubleClick(box.id)}
                     >
                         {box.isEditing ? (
-                            <input
-                                autoFocus
-                                type="text"
-                                value={box.text}
-                                style={{ color: textColor }}
-                                onChange={(e) =>
-                                    setTextBoxes((p) =>
-                                        p.map((b) =>
-                                            b.id === box.id
-                                                ? { ...b, text: e.target.value }
-                                                : b
-                                        )
-                                    )
-                                }
-                                onBlur={() =>
-                                    setTextBoxes((p) =>
-                                        p.map((b) =>
-                                            b.id === box.id
-                                                ? { ...b, isEditing: false }
-                                                : b
-                                        )
-                                    )
-                                }
+                            <TextInput
+                                key={box.id}
+                                box={box}
+                                textColor={textColor}
+                                setTextBoxes={setTextBoxes}
                             />
                         ) : (
                             <span className="text-display">{box.text}</span>
@@ -368,6 +379,9 @@ export default function MemeEditor({
                             width: char.width,
                             height: char.height,
                             position: "absolute",
+                            transform: char.flipped
+                                ? "scaleX(-1)"
+                                : "scaleX(1)",
                         }}
                         onMouseDown={(e) => {
                             e.preventDefault();
@@ -428,6 +442,27 @@ export default function MemeEditor({
                     >
                         🗑️ Delete
                     </button>
+                    <button
+                        onClick={() =>
+                            setCharacters((prev) =>
+                                prev.map((c) =>
+                                    c.id === selectedChar
+                                        ? { ...c, flipped: !c.flipped }
+                                        : c
+                                )
+                            )
+                        }
+                        style={{
+                            marginLeft: 10,
+                            background: "#4d94ff",
+                            color: "white",
+                            border: "none",
+                            padding: "6px 10px",
+                            borderRadius: 6,
+                        }}
+                    >
+                        🔄 Flip
+                    </button>
                 </div>
             )}
 
@@ -437,15 +472,75 @@ export default function MemeEditor({
                     characterImages={characterImages}
                     addCharacter={addCharacter}
                 />
-                <div >
+                <div>
                     <DrawingControls
                         isDrawingMode={isDrawingMode}
                         drawColor={draw_color}
                         setIsDrawingMode={setIsDrawingMode}
                         setDrawColor={set_draw_color}
-                    />                    
+                    />
                 </div>
             </div>
         </div>
     );
 }
+
+interface TextInputProps {
+    box: TextBox;
+    textColor: string;
+    setTextBoxes: React.Dispatch<React.SetStateAction<TextBox[]>>;
+}
+
+const TextInput: React.FC<TextInputProps> = ({
+    box,
+    textColor,
+    setTextBoxes,
+}) => {
+    const inputRef = useRef<HTMLTextAreaElement | null>(null);
+    const hasSelectedOnce = useRef(false);
+
+    useEffect(() => {
+        if (box.isEditing && inputRef.current && !hasSelectedOnce.current) {
+            inputRef.current.focus();
+            inputRef.current.select();
+            hasSelectedOnce.current = true;
+        }
+    }, [box.isEditing]);
+
+    return (
+        <textarea
+            ref={inputRef}
+            value={box.text}
+            style={{
+                color: textColor,
+                fontSize: "18px",
+                fontWeight: "bold",
+                background: "transparent",
+                border: "none",
+                outline: "none",
+                resize: "none",
+                width: "200px",
+                textAlign: "center",
+                overflow: "hidden",
+            }}
+            rows={3}
+            onChange={(e) => {
+                // Wrap at 25 characters per line
+                const value = e.target.value
+                    .replace(/(.{25})(?!$)/g, "$1\n")
+                    .replace(/\n{2,}/g, "\n"); // cleanup extra newlines
+
+                setTextBoxes((p) =>
+                    p.map((b) => (b.id === box.id ? { ...b, text: value } : b))
+                );
+            }}
+            onBlur={() =>
+                setTextBoxes((p) =>
+                    p.map((b) =>
+                        b.id === box.id ? { ...b, isEditing: false } : b
+                    )
+                )
+            }
+        />
+    );
+};

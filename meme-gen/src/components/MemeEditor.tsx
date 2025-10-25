@@ -527,7 +527,6 @@ const TextInput: React.FC<TextInputProps> = ({
             onChange={(e) => {
                 // Wrap at 25 characters per line
                 const value = e.target.value
-                    .replace(/(.{25})(?!$)/g, "$1\n")
                     .replace(/\n{2,}/g, "\n"); // cleanup extra newlines
 
                 setTextBoxes((p) =>

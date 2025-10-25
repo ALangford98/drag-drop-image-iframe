@@ -96,7 +96,7 @@
     cursor: move;
     display: inline-block;
     padding: 2px 4px;
-    white-space: pre-line;
+    white-space: pre;
 }
 
 .draggable-text input {

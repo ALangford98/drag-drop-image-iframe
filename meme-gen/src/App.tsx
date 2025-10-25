@@ -65,7 +65,7 @@ const templates: Template[] = [
 
 function App() {
     const MAJOR_VERSION = "1";
-    const MINOR_VERSION = "4";
+    const MINOR_VERSION = "5";
 
     const [selectedTemplate, setSelectedTemplate] = useState<Template | null>(
         null

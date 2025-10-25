@@ -64,6 +64,9 @@ const templates: Template[] = [
 ];
 
 function App() {
+  const MAJOR_VERSION = "1"
+  const MINOR_VERSION = "0.0.3"
+
   const [selectedTemplate, setSelectedTemplate] = useState<Template | null>(null);
 
   const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -87,6 +90,20 @@ function App() {
 
   return (
     <div className="App">
+      <div
+                    style={{
+                        fontFamily: "monospace",
+                        position: "absolute",
+                        bottom: 8,
+                        right: 12,
+                        fontSize: "16px",
+                        color: "rgba(100, 100, 100, 0.84)",
+                        pointerEvents: "none",
+                        userSelect: "none",
+                    }}
+                >
+                    meme-maker v{MAJOR_VERSION}.{MINOR_VERSION} @ rageonsol.com
+                </div>
       {!selectedTemplate ? (
         <div className="template-selector">
           <h2 style={{ color: "black" }}>Select a Background</h2>

@@ -155,8 +155,8 @@ export default function MemeEditor({
             {
                 id: Date.now(),
                 text: "Double-click to edit",
-                x: 200,
-                y: 200,
+                x: 100,
+                y: 100,
                 isEditing: false,
             },
         ]);
@@ -246,9 +246,17 @@ export default function MemeEditor({
     const handleTextDoubleClick = (id: number) => {
         deselectAll();
         setTextBoxes((prev) =>
-            prev.map((b) =>
-                b.id === id ? { ...b, isEditing: !b.isEditing } : b
-            )
+            prev.map((b) => {
+                if (b.id === id) {
+                    return {
+                        ...b,
+                        x: 200, // - x_offset,
+                        y: 200,
+                        isEditing: !b.isEditing,
+                    };
+                }
+                return b;
+            })
         );
     };
 
@@ -340,17 +348,20 @@ export default function MemeEditor({
                             color: textColor,
                             position: "absolute",
                         }}
-                        onMouseDown={(e) =>
-                            startDrag(box.id, e.clientX, e.clientY, "text")
-                        }
-                        onTouchStart={(e) =>
+                        onMouseDown={(e) => {
+                            // 👇 disable drag if the box is being edited
+                            if (box.isEditing) return;
+                            startDrag(box.id, e.clientX, e.clientY, "text");
+                        }}
+                        onTouchStart={(e) => {
+                            if (box.isEditing) return;
                             startDrag(
                                 box.id,
                                 e.touches[0].clientX,
                                 e.touches[0].clientY,
                                 "text"
-                            )
-                        }
+                            );
+                        }}
                         onDoubleClick={() => handleTextDoubleClick(box.id)}
                     >
                         {box.isEditing ? (
@@ -512,6 +523,10 @@ const TextInput: React.FC<TextInputProps> = ({
             ref={inputRef}
             value={box.text}
             style={{
+                position: "absolute",
+                left: 0,
+                top: 0,
+                transform: "translate(-50%, -50%)",
                 color: textColor,
                 fontSize: "18px",
                 fontWeight: "bold",
@@ -520,15 +535,16 @@ const TextInput: React.FC<TextInputProps> = ({
                 outline: "none",
                 resize: "none",
                 width: "200px",
+                height: "auto",
                 textAlign: "center",
                 overflow: "hidden",
+                whiteSpace: "pre", // keep manual line breaks only
+                lineHeight: "1.2em",
+                pointerEvents: "auto",
             }}
             rows={3}
             onChange={(e) => {
-                // Wrap at 25 characters per line
-                const value = e.target.value
-                    .replace(/\n{2,}/g, "\n"); // cleanup extra newlines
-
+                const value = e.target.value.replace(/\n{2,}/g, "\n");
                 setTextBoxes((p) =>
                     p.map((b) => (b.id === box.id ? { ...b, text: value } : b))
                 );

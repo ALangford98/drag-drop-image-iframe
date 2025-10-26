@@ -64,8 +64,8 @@ const templates: Template[] = [
 ];
 
 function App() {
-    const MAJOR_VERSION = "1";
-    const MINOR_VERSION = "5";
+    const MAJOR_VERSION = "1.0.0";
+    const MINOR_VERSION = "6";
 
     const [selectedTemplate, setSelectedTemplate] = useState<Template | null>(
         null
@@ -106,7 +106,7 @@ function App() {
                     userSelect: "none",
                 }}
             >
-                v{MAJOR_VERSION}.{MINOR_VERSION}
+                v{MAJOR_VERSION}-{MINOR_VERSION}
             </div>
                     <h2 style={{ color: "black" }}>Select a Background</h2>
                     <div className="template-list">

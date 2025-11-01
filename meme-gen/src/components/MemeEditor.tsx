@@ -57,6 +57,26 @@ const characterImages = [
     `${process.env.PUBLIC_URL}/ragers/Lauging Herpette.webp`,
     `${process.env.PUBLIC_URL}/ragers/Me Gusta.webp`,
     `${process.env.PUBLIC_URL}/ragers/Precious.webp`,
+    `${process.env.PUBLIC_URL}/ragers/fapguy.png`,
+    `${process.env.PUBLIC_URL}/ragers/schlick.png`,
+    `${process.env.PUBLIC_URL}/ragers/trollina.webp`,
+    `${process.env.PUBLIC_URL}/ragers/trollina-inverted-nobg.png`,
+    `${process.env.PUBLIC_URL}/ragers/Okay.png`,
+
+    `${process.env.PUBLIC_URL}/wojack/afterpain.png`,
+    `${process.env.PUBLIC_URL}/wojack/chad.png`,
+    `${process.env.PUBLIC_URL}/wojack/itsover.png`,
+    `${process.env.PUBLIC_URL}/wojack/mask.png`,
+    `${process.env.PUBLIC_URL}/wojack/midlife.png`,
+    `${process.env.PUBLIC_URL}/wojack/pain.png`,
+    `${process.env.PUBLIC_URL}/wojack/retord.png`,
+    `${process.env.PUBLIC_URL}/wojack/smug.png`,
+    `${process.env.PUBLIC_URL}/wojack/smug_og.png`,
+    `${process.env.PUBLIC_URL}/wojack/this_guy.png`,
+    `${process.env.PUBLIC_URL}/wojack/wojak.png`,
+    `${process.env.PUBLIC_URL}/wojack/wojakrage.png`,
+    `${process.env.PUBLIC_URL}/wojack/youcant.png`,
+
 ];
 
 export default function MemeEditor({
